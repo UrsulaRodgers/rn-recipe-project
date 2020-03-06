@@ -1,6 +1,6 @@
 const palette = {
     white: '#fff',
-    offWhite: '#fcfcfc',
+    // offWhite: '#fcfcfc',
     lightGrey:'#e5e3e6',
     medGrey: '#ADAAAA',
     darkGrey: '#716F6F',
@@ -10,9 +10,10 @@ const palette = {
 
 export const colors = {
     primaryText: palette.white,
+    secondaryText: palette.darkGrey,
     primaryHeaderBackground: palette.medGrey,
     primaryBackground: palette.lightGrey,
-    secondaryBackground: palette.offWhite,
+    secondaryBackground: palette.darkGrey,
     mealItemDefault: palette.lilac,
     mealsTabColor: palette.darkGrey,
     favTabColor: palette.orange
