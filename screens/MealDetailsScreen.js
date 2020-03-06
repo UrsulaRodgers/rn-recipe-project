@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView, Platform } from 'react-native'
 import { MEALS } from '../data/dummy-data'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { colors } from '../theme'
@@ -8,22 +8,17 @@ import Card from '../components/Card'
 import DefaultText from '../components/DefaultText'
 import HeadingText from '../components/HeadingText'
 
-const renderTextColor = catColor => {
-    return catColor ? { color: catColor } : { color: colors.mealItemDefault }
-}
-
 const MealDetailsScreen = props => {
     const mealId = props.navigation.getParam('mealId')
-    const catColor = props.navigation.getParam('color')
     const selectedMeal = MEALS.find(meal => meal.id === mealId)
 
     return (
         <ScrollView contentContainerStyle={styles.screen}>
             <Image source={{uri: selectedMeal.imageUrl}} style={styles.image} />
             <View style={styles.mealRow}>
-                <DefaultText style={renderTextColor(catColor)}>{selectedMeal.duration}m</DefaultText>
-                <DefaultText style={renderTextColor(catColor)}>{selectedMeal.complexity.toUpperCase()}</DefaultText>
-                <DefaultText style={renderTextColor(catColor)}>{selectedMeal.affordability.toUpperCase()}</DefaultText>
+                <DefaultText style={styles.mealRowText}>{selectedMeal.duration}m</DefaultText>
+                <DefaultText style={styles.mealRowText}>{selectedMeal.complexity.toUpperCase()}</DefaultText>
+                <DefaultText style={styles.mealRowText}>{selectedMeal.affordability.toUpperCase()}</DefaultText>
             </View>
             <View style={styles.recipeView}>
                 <Card style={styles.recipeCard}>
@@ -55,6 +50,7 @@ MealDetailsScreen.navigationOptions = navigationProps => {
     const mealId = navigationProps.navigation.getParam('mealId')
     const catColor = navigationProps.navigation.getParam('color')
     const selectedMeal = MEALS.find(meal => meal.id === mealId)
+    const iOSTintColor = catColor ? catColor : colors.mealItemDefault
 
     return {
         headerTitle: selectedMeal.title,
@@ -62,15 +58,18 @@ MealDetailsScreen.navigationOptions = navigationProps => {
             <Item 
                 title='Favourite'
                 iconName='ios-star'
+                color={Platform.OS === "android" ? "white" : "black"}
                 onPress={() => {
                     console.log('Fav')
                 }}
             />
         </HeaderButtons>,
-        headerStyle: {
+        headerStyle: Platform.OS === 'android' ? {
             backgroundColor: catColor ? catColor : colors.mealItemDefault,
             opacity: 0.8
-        },
+        }
+        : {},
+        headerTintColor: Platform.OS === 'android' ? colors.primaryText : iOSTintColor
     }
 }
 
@@ -86,6 +85,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         backgroundColor: colors.secondaryBackground
+    },
+    mealRowText: {
+        color: colors.primaryText
     },
     recipeView: {
         alignItems: 'center',

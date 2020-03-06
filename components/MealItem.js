@@ -4,11 +4,6 @@ import { colors } from '../theme'
 import DefaultText from './DefaultText'
 
 const MealItem = props => {
-
-    const renderTextColor = catColor => {
-        return catColor ? { color: catColor } : { color: colors.mealItemDefault }
-    }
-
     const renderBorderColor = catColor => {
         return catColor ? { borderColor: catColor } : { borderColor: colors.mealItemDefault }
     }
@@ -28,9 +23,9 @@ const MealItem = props => {
                         </ImageBackground>
                     </View>
                     <View style={{ ...styles.mealRow, ...styles.mealInformation }}>
-                        <DefaultText style={renderTextColor(props.catColor)}>{props.duration}m</DefaultText>
-                        <DefaultText style={renderTextColor(props.catColor)}>{props.complexity}</DefaultText>
-                        <DefaultText style={renderTextColor(props.catColor)}>{props.affordability}</DefaultText>
+                        <DefaultText style={styles.mealRowText}>{props.duration}m</DefaultText>
+                        <DefaultText style={styles.mealRowText}>{props.complexity}</DefaultText>
+                        <DefaultText style={styles.mealRowText}>{props.affordability}</DefaultText>
                     </View>
                 </View>
             </TouchableComponent>
@@ -60,6 +55,9 @@ const styles = StyleSheet.create({
     mealRow: {
         flexDirection: 'row',
         backgroundColor: colors.secondaryBackground
+    },
+    mealRowText: {
+        color: colors.primaryText
     },
     mealItemHeader: {
         flex: 1,
