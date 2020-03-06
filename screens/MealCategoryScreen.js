@@ -1,4 +1,5 @@
 import React from 'react'
+import { Platform } from 'react-native'
 import { CATEGORIES, MEALS } from '../data/dummy-data'
 import { colors } from '../theme'
 import MealList from '../components/MealList'
@@ -16,11 +17,12 @@ MealCategoryScreen.navigationOptions = navigationProps => {
 
     return {
         headerTitle: selectedCategory.title,
-        headerStyle: {
+        headerStyle: Platform.OS === 'android' ? {
             backgroundColor: catColor,
             opacity: 0.8
-        },
-        headerTintColor: colors.primaryText
+        }
+        : {},
+        headerTintColor: Platform.OS === 'android' ? colors.primaryText : catColor
     }
 }
 

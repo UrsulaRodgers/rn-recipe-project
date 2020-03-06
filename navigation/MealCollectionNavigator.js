@@ -16,15 +16,13 @@ import TabBarLabel from '../components/TabBarLabel'
 
 const defaultNavOptions = {
     headerStyle: {
-        backgroundColor: colors.primaryHeaderBackground
+        backgroundColor: Platform.OS === 'android' ? colors.primaryHeaderBackground : ''
     },
-    headerTintColor: colors.primaryText,
+    headerTintColor: Platform.OS === 'android' ? colors.primaryText : colors.secondaryText,
     headerTitleStyle: {
         fontFamily: 'open-sans-bold'
     },
-    headerBackTitleStyle: {
-        fontFamily: 'open-sans'
-    }
+    headerBackTitleVisible: false
 }
 
 const MealStackNavigator = createStackNavigator({
@@ -72,7 +70,7 @@ const tabScreenConfig = {
                 )
             },
             tabBarColor: colors.mealsTabColor,
-            tabBarLabel: Platform.OS === 'android' ? <TabBarLabel>Meals</TabBarLabel> : Meals
+            tabBarLabel: Platform.OS === 'android' ? <TabBarLabel>Meals</TabBarLabel> : 'Meals'
         }
     },
     Favourites: {
@@ -89,7 +87,7 @@ const tabScreenConfig = {
                 )
             },
             tabBarColor: colors.favTabColor,
-            tabBarLabel: Platform.OS === 'android' ? <TabBarLabel>Favourites</TabBarLabel> : Favourites
+            tabBarLabel: Platform.OS === 'android' ? <TabBarLabel>Favourites</TabBarLabel> : 'Favourites'
         }
     }
 }
